@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import UserInfo from "./UserInfo";
-import ProfilePicture from "./ProfilePicture";
 import { Button } from "react-bootstrap";
 
 function Profile({ user, setUser }) {
   const [showEmail, setShowEmail] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
+  // Handle Input Changes (Name, Email, Password)
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUser((prevUser) => ({
@@ -15,15 +14,60 @@ function Profile({ user, setUser }) {
     }));
   };
 
+  // Handle Profile Picture Upload
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setUser((prevUser) => ({
+          ...prevUser,
+          profilePic: reader.result, // Save the image as base64
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <div className="container p-4 bg-white shadow rounded">
       <h2 className="text-center mb-4 text-dark">Profile</h2>
 
+      {/* Profile Picture */}
       <div className="text-center">
-        <ProfilePicture />
+        <label htmlFor="profilePicInput" className="d-block">
+          <div
+            className="rounded-circle border border-primary d-flex align-items-center justify-content-center mx-auto"
+            style={{
+              width: 120,
+              height: 120,
+              overflow: "hidden",
+              cursor: "pointer",
+            }}
+          >
+            {user.profilePic ? (
+              <img
+                src={user.profilePic}
+                alt="Profile"
+                className="img-fluid rounded-circle"
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              />
+            ) : (
+              <span className="text-primary fw-bold">Upload</span>
+            )}
+          </div>
+        </label>
+        <input
+          type="file"
+          id="profilePicInput"
+          accept="image/*"
+          onChange={handleImageUpload}
+          className="d-none"
+        />
       </div>
 
-      <div className="text-center">
+      {/* User Info */}
+      <div className="text-center mt-3">
         <h4 className="fw-bold text-dark">
           {user.name} <span className="fw-normal">Username</span>
         </h4>
@@ -50,7 +94,8 @@ function Profile({ user, setUser }) {
           </Button>
         </p>
       </div>
-      
+
+      {/* Editable Fields */}
       <div className="mt-4">
         <label className="fw-bold text-dark">Name</label>
         <input

@@ -7,8 +7,8 @@ import Settings from "./components/Settings";
 
 function App() {
   const [user, setUser] = useState({
-    name: "John Doe",
-    email: "johndoe@gmail.com",
+    name: "Julianne Igonia",
+    email: "Igonia@gmail.com",
     password: "123456",
     profilePic: "",
     settings: { darkMode: false },
