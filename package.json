@@ -1,23 +1,36 @@
 {
-    "name": "prelim-e3-lastname-firstname",
-    "version": "1.0.0",
-    "description": "User Profile App with React, Bootstrap, and React Router",
-    "main": "index.js",
-    "dependencies": {
-        "bootstrap": "^5.3.3",
-        "browserslist": "^4.24.4",
-        "react": "^18.3.1",
-        "react-dom": "^18.3.1",
-        "react-router-dom": "^6.30.0",
-        "react-scripts": "^5.0.1"
-    },
-    "scripts": {
-        "start": "react-scripts start",
-        "build": "react-scripts build",
-        "test": "react-scripts test",
-        "eject": "react-scripts eject"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "MIT"
+  "name": "prelim-e3-lastname-firstname",
+  "version": "1.0.0",
+  "description": "User Profile App with React, Bootstrap, and React Router",
+  "main": "index.js",
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "browserslist": "^4.24.4",
+    "react": "^18.3.1",
+    "react-bootstrap": "^2.10.9",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^7.3.0",
+    "react-scripts": "^5.0.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }

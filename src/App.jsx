@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import React, { useState, useCallback } from "react";
+import { Routes, Route, Link } from "react-router-dom"; // ✅ NO BrowserRouter here
 import "bootstrap/dist/css/bootstrap.min.css";
 import Home from "./components/Home";
 import Profile from "./components/Profile";
@@ -8,35 +8,73 @@ import Settings from "./components/Settings";
 function App() {
   const [user, setUser] = useState({
     name: "John Doe",
-    settings: {
-      darkMode: false,
-    },
+    email: "johndoe@gmail.com",
+    password: "123456",
+    profilePic: "",
+    settings: { darkMode: false },
   });
 
-  const toggleDarkMode = () => {
+  const toggleDarkMode = useCallback(() => {
     setUser((prevUser) => ({
       ...prevUser,
-      settings: { ...prevUser.settings, darkMode: !prevUser.settings.darkMode },
+      settings: { darkMode: !prevUser.settings.darkMode },
     }));
-  };
+  }, []);
 
   return (
-    <Router>
-      <div className={user.settings.darkMode ? "bg-dark text-light" : "bg-light text-dark"}>
-        <nav className="navbar navbar-expand-lg navbar-light bg-primary p-2">
-          <Link className="navbar-brand text-white" to="/">Home</Link>
-          <Link className="nav-link text-white" to="/profile">Profile</Link>
-          <Link className="nav-link text-white" to="/settings">Settings</Link>
-        </nav>
-        <div className="container mt-4">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/profile" element={<Profile user={user} setUser={setUser} />} />
-            <Route path="/settings" element={<Settings user={user} toggleDarkMode={toggleDarkMode} />} />
-          </Routes>
+    <div
+      className={`min-vh-100 ${
+        user.settings.darkMode ? "bg-dark text-light" : "bg-light text-dark"
+      }`}
+    >
+      <nav
+        className={`navbar navbar-expand-lg ${
+          user.settings.darkMode
+            ? "bg-dark navbar-dark"
+            : "bg-light navbar-light"
+        } p-3`}
+      >
+        <div className="container">
+          <Link className="navbar-brand fw-bold" to="/">
+            IgoniaApp
+          </Link>
+
+          <div>
+            <ul className="navbar-nav ms-auto">
+              <li className="nav-item">
+                <Link className="nav-link" to="/">
+                  Home
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/profile">
+                  Profile
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/settings">
+                  Settings
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
+      </nav>
+
+      <div className="container mt-4">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/profile"
+            element={<Profile user={user} setUser={setUser} />}
+          />
+          <Route
+            path="/settings"
+            element={<Settings user={user} toggleDarkMode={toggleDarkMode} />}
+          />
+        </Routes>
       </div>
-    </Router>
+    </div>
   );
 }
 
